@@ -13,7 +13,7 @@ const router = Router();
 // GET
 router.get('/count-users', checkAuth, async (req: Request, res: Response) => {
     try {
-        const reuglar = await model_user.find({ role: 'regular' });
+    const reuglar = await model_user.find({ role: 'regular' });
         const research = await model_user.find({ role: 'research-center' });
         const out = { regular: reuglar.length, research: research.length };
         res.json({ message: out });

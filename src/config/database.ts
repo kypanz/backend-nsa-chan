@@ -6,9 +6,9 @@ async function runMongoose() {
   try {
     console.log('Production mode enabled ? => ', process.env.MODE_TEST);
     if (process.env.MODE_TEST == 'true') {
-      await mongoose.connect('mongodb://127.0.0.1:27017/proyecto');
+      await mongoose.connect('mongodb://127.0.0.1:27017/waifus');
     } else {
-      await mongoose.connect('mongodb://127.0.0.1:27017/proyecto');
+      await mongoose.connect('mongodb://127.0.0.1:27017/waifus');
     }
   } catch (error) {
     console.log('error on connection');

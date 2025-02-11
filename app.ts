@@ -5,6 +5,7 @@ import session from 'express-session';
 import passport from 'passport';
 import passport_local from 'passport-local';
 import userRouter from './src/routes/users';
+import companionRouter from './src/routes/companions';
 import { model_user } from './src/models/database';
 import cors from 'cors';
 import http from 'http';
@@ -84,6 +85,7 @@ passport.deserializeUser(model_user.deserializeUser());
 
 // Routes
 app.use('/users', userRouter);
+app.use('/companions', companionRouter);
 
 app.get('/', (_req, _res) => {
   _res.send("...");
