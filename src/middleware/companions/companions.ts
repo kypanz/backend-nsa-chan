@@ -6,14 +6,17 @@ import { extractFile } from '../../utils/file-handler';
 
 export async function companionCreate(req: Request, res: Response) {
   try {
-    const { name, description, image } = req.body;
-    const file = req.file; // files or files ?
-    if (!file) throw new Error('File not found');
-    await extractFile({ name: file.filename });
+    const { name, description } = req.body;
+    if (!req.files) throw new Error('File not found');
+    const file = (req.files as any)['file'][0];
+    const image = (req.files as any)['image'][0];
+    const path_extraction = await extractFile({ name: file.filename });
+    if (!path_extraction) throw new Error('Error on extractFile');
     await model_companion.create({
       name: name,
       description: description,
-      image: image,
+      image: image.path,
+      name_model_folder: file.path,
     });
     return res.json({
       message: 'Companion created'

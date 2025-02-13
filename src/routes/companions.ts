@@ -10,7 +10,10 @@ const upload = multer({ dest: 'uploads/' });
 
 
 // CRUD
-router.post('/create', upload.single('file'), companionCreate);
+router.post('/create', upload.fields([
+  { name: 'file', maxCount: 1, },
+  { name: 'image', maxCount: 1 }
+]), companionCreate);
 router.get('/list', companionList);
 router.put('/update', companionUpdate);
 router.delete('/delete', companionDelete);

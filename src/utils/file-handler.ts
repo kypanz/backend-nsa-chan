@@ -1,4 +1,4 @@
-import zl from 'zip-lib';
+import * as zl from 'zip-lib';
 
 interface IExtractFile {
   name: string;
@@ -7,8 +7,9 @@ interface IExtractFile {
 // TODO : check the await of the zl function
 export async function extractFile({ name }: IExtractFile) {
   try {
-    await zl.extract(`uploads/${name}`, 'companions');
-    return true;
+    const path_extraction = `companions/${name}`;
+    zl.extract(`uploads/${name}`, path_extraction);
+    return path_extraction;
   } catch (error) {
     console.error(error);
     return false;
