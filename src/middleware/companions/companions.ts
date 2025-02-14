@@ -1,6 +1,6 @@
 import { Response, Request } from 'express';
 import { model_companion } from '../../models/database';
-import { extractFile } from '../../utils/file-handler';
+import { extractFile, imgToBase64 } from '../../utils/file-handler';
 
 // TODO : create a util to extract the zip files
 
@@ -11,11 +11,13 @@ export async function companionCreate(req: Request, res: Response) {
     const file = (req.files as any)['file'][0];
     const image = (req.files as any)['image'][0];
     const path_extraction = await extractFile({ name: file.filename });
+    const result_base64 = await imgToBase64({ name: image.filename });
+    if (!result_base64) throw new Error('Error on convert image to base64');
     if (!path_extraction) throw new Error('Error on extractFile');
     await model_companion.create({
       name: name,
       description: description,
-      image: image.path,
+      image: `data:image/jpeg;base64,${result_base64}`,
       name_model_folder: file.path,
     });
     return res.json({

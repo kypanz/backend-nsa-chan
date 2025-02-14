@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon app.ts",
+    "dev": "nodemon app.ts",
+    "start": "tsc && node build/app.js",
     "build": "tsc",
     "test": "mocha -r ts-node/register 'tests/**/*.ts'"
   },
